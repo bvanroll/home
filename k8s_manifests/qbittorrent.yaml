@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qbittorrent
+  labels:
+    app.kubernetes.io/name: qbittorrent
+spec:
+  volumes:
+   - name: nfs-vol 
+     nfs:
+       server: 192.168.0.114
+       path: /mnt/test1/media/testing
+  containers:
+    - name: qbittorrent
+      image: ghcr.io/hotio/qbittorrent:latest
+      env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: UMASK
+          value: "002"
+        - name: TZ
+          value: "Etc/UTC"
+        - name: WEBUI_PORTS
+          value: "8080/tcp,8080/udp"
+      ports:
+        - containerPort: 8080
+      volumeMounts:
+        - name: nfs-vol 
+          mountPath: /media
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-qbittorrent
+spec:
+  selector:
+    app.kubernetes.io/name: qbittorrent
+  ports:
+    - name: webui
+      protocol: TCP 
+      port: 80
+      targetPort: 8080
+
+
+
