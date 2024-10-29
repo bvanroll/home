@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-plex
+spec:
+  selector:
+    app.kubernetes.io/name: plex
+  ports:
+    - name: webui
+      protocol: TCP 
+      port: 80
+      targetPort: 32400
+
+

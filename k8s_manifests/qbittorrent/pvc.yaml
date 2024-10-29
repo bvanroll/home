@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-qbittorrent
+spec: 
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 1Gi } }
+

@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transcode-plex
+spec: 
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 16Gi } }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-plex
+spec: 
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 1Gi } }
+
+

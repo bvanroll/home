@@ -4,6 +4,56 @@ metadata:
   name: main-ingress
 spec:
   rules:
+    - host: "bazarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-bazarr
+                port:
+                  number: 80
+    - host: "sonarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-sonarr
+                port:
+                  number: 80
+    - host: "prowlarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-prowlarr
+                port:
+                  number: 80
+    - host: "radarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-radarr
+                port:
+                  number: 80
+    - host: "lidarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-lidarr
+                port:
+                  number: 80
     - host: "qbittorrent.local"
       http:
         paths:
@@ -12,5 +62,15 @@ spec:
             backend:
               service:
                 name: svc-qbittorrent
+                port:
+                  number: 80
+    - host: "plex.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-plex
                 port:
                   number: 80

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-prowlarr
+spec:
+  selector:
+    app.kubernetes.io/name: prowlarr
+  ports:
+    - name: webui
+      protocol: TCP 
+      port: 80
+      targetPort: 9696
+
+
