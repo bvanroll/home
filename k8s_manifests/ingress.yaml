@@ -14,16 +14,6 @@ spec:
                 name: svc-bazarr
                 port:
                   number: 80
-    - host: "sonarr.local"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: svc-sonarr
-                port:
-                  number: 80
     - host: "prowlarr.local"
       http:
         paths:
@@ -72,5 +62,15 @@ spec:
             backend:
               service:
                 name: svc-plex
+                port:
+                  number: 80
+    - host: "sonarr.local"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-sonarr
                 port:
                   number: 80
