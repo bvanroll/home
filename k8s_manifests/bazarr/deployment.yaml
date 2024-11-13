@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  labels:
+    app.kubernetes.io/name: bazarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bazarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bazarr
+    spec:
+      volumes:
+       - name: nfs-vol 
+         nfs:
+           server: 192.168.0.114
+           path: /mnt/test1/media/
+       - name: config
+         persistentVolumeClaim:
+           claimName: config-bazarr
+      containers:
+        - name: bazarr
+          image: ghcr.io/hotio/bazarr:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+            - name: WEBUI_PORTS
+              value: "6767/tcp,6767/udp"
+          ports:
+            - containerPort: 6767
+          volumeMounts:
+            - name: config 
+              mountPath: /config
+            - name: nfs-vol 
+              mountPath: /media
+    

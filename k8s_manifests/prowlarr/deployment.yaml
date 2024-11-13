@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  labels:
+    app.kubernetes.io/name: prowlarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prowlarr
+    spec:
+      volumes:
+       - name: config
+         persistentVolumeClaim:
+           claimName: config-prowlarr
+      containers:
+        - name: prowlarr
+          image: ghcr.io/hotio/prowlarr:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+          ports:
+            - containerPort: 9696
+          volumeMounts:
+            - name: config 
+              mountPath: /config
+    

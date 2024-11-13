@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  labels:
+    app.kubernetes.io/name: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sonarr
+    spec:
+      volumes:
+       - name: nfs-vol 
+         nfs:
+           server: 192.168.0.114
+           path: /mnt/test1/media/
+       - name: config
+         persistentVolumeClaim:
+           claimName: config-sonarr
+      containers:
+        - name: sonarr
+          image: ghcr.io/hotio/sonarr:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+          ports:
+            - containerPort: 8989
+          volumeMounts:
+            - name: config 
+              mountPath: /config
+            - name: nfs-vol 
+              mountPath: /media
+    
