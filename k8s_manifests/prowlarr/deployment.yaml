@@ -16,11 +16,19 @@ spec:
     spec:
       volumes:
        - name: config
-         persistentVolumeClaim:
-           claimName: config-prowlarr
+         nfs:
+           path: /mnt/test1/media/config/prowlarr
+           server: 192.168.0.99
       containers:
         - name: prowlarr
           image: ghcr.io/hotio/prowlarr:latest
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 9696
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 3
           env:
             - name: PUID
               value: "1000"

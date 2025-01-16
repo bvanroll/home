@@ -17,17 +17,23 @@ spec:
       volumes:
        - name: nfs-vol 
          nfs:
-           server: 192.168.0.114
+           server: 192.168.0.99
            path: /mnt/test1/media/
-       - name: transcode
-         persistentVolumeClaim:
-           claimName: transcode-plex
        - name: config
-         persistentVolumeClaim:
-           claimName: config-plex
+         nfs:
+           path: /mnt/test1/media/config/plex
+           server: 192.168.0.99
       containers:
         - name: plex
           image: ghcr.io/hotio/plex:latest
+          livenessProbe:
+            httpGet:
+              path: /identity
+              port: 32400
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
+
           env:
             - name: PUID
               value: "1000"
@@ -51,8 +57,6 @@ spec:
           volumeMounts:
             - name: config 
               mountPath: /config
-            - name: transcode 
-              mountPath: /transcode
             - name: nfs-vol 
               mountPath: /media
     

@@ -17,13 +17,21 @@ spec:
       volumes:
        - name: nfs-vol 
          nfs:
-           server: 192.168.0.114
+           server: 192.168.0.99
            path: /mnt/test1/media/
        - name: config
-         persistentVolumeClaim:
-           claimName: config-lidarr
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/lidarr
       containers:
         - name: lidarr
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8686
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
           image: ghcr.io/hotio/lidarr:latest
           env:
             - name: PUID

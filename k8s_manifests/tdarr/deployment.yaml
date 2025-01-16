@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tdarr
+  labels:
+    app.kubernetes.io/name: tdarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tdarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tdarr
+    spec:
+      volumes:
+       #- name: transcode 
+       #  persistentVolumeClaim:
+       #    claimName: transcode-tdarr
+       - name: nfs-vol 
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/
+       - name: server
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/tdarr/server
+
+       - name: configs
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/tdarr/configs
+
+       - name: logs
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/tdarr/logs
+      containers:
+        - name: tdarr
+          image: ghcr.io/haveagitgat/tdarr:latest
+          #TODO
+#          livenessProbe:
+#            httpGet:
+#              path: /ping
+#              port: 8989
+#            initialDelaySeconds: 60
+#            failureThreshold: 6
+#            periodSeconds: 10
+          env:
+            - name: serverIP
+              value: "0.0.0.0"
+            - name: serverPort
+              value: "8266"
+            - name: webUIPort
+              value: "8265"
+            - name: internalNode
+              value: "true"
+            - name: inContainer
+              value: "true"
+            - name: ffmpegVersion
+              value: "6"
+            - name: nodeName
+              value: "myInternalNode"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+          ports:
+            - containerPort: 8265
+            - containerPort: 8266
+          volumeMounts:
+            - name: configs 
+              mountPath: /app/configs 
+            - name: logs
+              mountPath: /app/logs
+            - name: server
+              mountPath: /app/server
+            - name: nfs-vol 
+              mountPath: /media
+            #- name: transcode
+            #  mountPath: /temp
+    

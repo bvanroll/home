@@ -17,14 +17,22 @@ spec:
       volumes:
        - name: nfs-vol 
          nfs:
-           server: 192.168.0.114
+           server: 192.168.0.99
            path: /mnt/test1/media/
        - name: config
-         persistentVolumeClaim:
-           claimName: config-bazarr
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/bazarr
       containers:
         - name: bazarr
           image: ghcr.io/hotio/bazarr:latest
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6767
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
           env:
             - name: PUID
               value: "1000"

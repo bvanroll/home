@@ -17,14 +17,22 @@ spec:
       volumes:
        - name: nfs-vol 
          nfs:
-           server: 192.168.0.114
+           server: 192.168.0.99
            path: /mnt/test1/media/
        - name: config
-         persistentVolumeClaim:
-           claimName: config-radarr
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/
       containers:
         - name: radarr
           image: ghcr.io/hotio/radarr:latest
+          livenessProbe: 
+            httpGet:
+              path: /ping
+              port: 7878
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
           env:
             - name: PUID
               value: "1000"

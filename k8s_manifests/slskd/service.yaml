@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-slskd
+spec:
+  selector:
+    app.kubernetes.io/name: slskd
+  ports:
+    - name: webui
+      protocol: TCP 
+      port: 80
+      targetPort: 5030
+
+

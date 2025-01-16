@@ -17,14 +17,23 @@ spec:
       volumes:
        - name: nfs-vol 
          nfs:
-           server: 192.168.0.114
+           server: 192.168.0.99
            path: /mnt/test1/media/
        - name: config
-         persistentVolumeClaim:
-           claimName: config-qbittorrent
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/qbittorrent/
       containers:
         - name: qbittorrent
           image: ghcr.io/hotio/qbittorrent:latest
+          livenessProbe: #untested
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
+
           env:
             - name: PUID
               value: "1000"

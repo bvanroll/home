@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slskd
+  labels:
+    app.kubernetes.io/name: slskd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: slskd
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: slskd
+    spec:
+      volumes:
+       - name: nfs-vol 
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/Music
+       - name: config
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/slskd/
+      containers:
+        - name: slskd
+          image: slskd/slskd:latest
+          env:
+            - name: SLSKD_REMOTE_CONFIGURATION
+              value: "true"
+          ports:
+            - containerPort: 5030
+            - containerPort: 5031
+            - containerPort: 50300
+          volumeMounts:
+            - name: config 
+              mountPath: /config
+            - name: nfs-vol 
+              mountPath: /app
+    
