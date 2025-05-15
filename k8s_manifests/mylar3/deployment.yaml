@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mylar3
+  labels:
+    app.kubernetes.io/name: mylar3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mylar3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mylar3
+    spec:
+      volumes:
+       - name: nfs-vol 
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/
+       - name: config
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/config/mylar3
+      containers:
+        - name: mylar3
+          image: lscr.io/linuxserver/mylar3:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+          ports:
+            - containerPort: 8090
+          volumeMounts:
+            - name: config 
+              mountPath: /config
+            - name: nfs-vol 
+              mountPath: /media
+    

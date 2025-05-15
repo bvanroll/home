@@ -26,6 +26,13 @@ spec:
       containers:
         - name: slskd
           image: slskd/slskd:latest
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5030
+            initialDelaySeconds: 60
+            failureThreshold: 6
+            periodSeconds: 10
           env:
             - name: SLSKD_REMOTE_CONFIGURATION
               value: "true"
