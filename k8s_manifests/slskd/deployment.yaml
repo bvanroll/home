@@ -27,11 +27,16 @@ spec:
         - name: slskd
           image: slskd/slskd:latest
           livenessProbe:
-            httpGet:
-              path: /health
-              port: 5030
-            initialDelaySeconds: 60
-            failureThreshold: 6
+            exec:
+              command:
+                - cat 
+                - /tmp/FAILNOW
+            #            httpGet:
+            #              path: /health
+            #              port: 5030
+            initialDelaySeconds: 21600 #reboot server every quarter day
+            #initialDelaySeconds: 60
+            failureThreshold: 2
             periodSeconds: 10
           env:
             - name: SLSKD_REMOTE_CONFIGURATION
