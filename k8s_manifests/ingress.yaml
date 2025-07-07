@@ -15,6 +15,16 @@ spec:
                 name: svc-truenas
                 port:
                   number: 443
+    - host: "pinry.local"
+      http:
+        paths:
+          - path: / 
+            pathType: Prefix 
+            backend: 
+              service:
+               name: svc-mylar3
+               port: 
+                 number: 80
     - host: "mylar3.local"
       http:
         paths:

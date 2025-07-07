@@ -26,13 +26,13 @@ spec:
       containers:
         - name: soularr
           image: mrusse08/soularr:latest
-          #livenessProbe:
-            #httpGet:
-            #  path: / 
-            #  port: 8989
-            #initialDelaySeconds: 60
-            #failureThreshold: 6
-            #periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: / 
+              port: 8989
+            initialDelaySeconds: 21600
+            failureThreshold: 6
+            periodSeconds: 10
           env:
             - name: PUID
               value: "1000"

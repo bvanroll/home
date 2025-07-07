@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pinry
+  labels:
+    app.kubernetes.io/name: pinry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pinry
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pinry
+    spec:
+      volumes:
+       - name: data
+         nfs:
+           server: 192.168.0.99
+           path: /mnt/test1/media/pinry
+      containers:
+        - name: pinry
+          image: getpinry/pinry
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: data
+              mountPath: /data
+    

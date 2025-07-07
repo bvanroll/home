@@ -1,8 +1,6 @@
-.secret/*
-*/.secret
-
-debug 
-target 
+debug
+target
 **/*.rs.bk 
 *.pdb 
 **/mutants.out*/
+
