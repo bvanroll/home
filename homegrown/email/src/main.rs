@@ -1,5 +1,12 @@
 use std::collections::HashMap;
 
+
+struct Channel {
+    id: String,
+    name: String,
+    type: String
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //getting the list of channels with id's first 

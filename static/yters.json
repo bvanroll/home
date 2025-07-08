@@ -1,5 +1,5 @@
 {
-  "squibquib":"UC-9-sjOyxoDCdQlVzObzGsw",
-  "sinixdesign":"UCUQTqWAaSzhAKRanOpes1nA",
-  "misshapenchair": ""
+  "squibquib":{ "id": "UC-9-sjOyxoDCdQlVzObzGsw", "type": "letsplay"},
+  "sinixdesign":{ "id":"UCUQTqWAaSzhAKRanOpes1nA" , "type": "art"},
+  "misshapenchair":{ "id": "", "type": "essay"}
 }
