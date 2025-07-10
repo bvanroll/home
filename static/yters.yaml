@@ -1,4 +1,3 @@
-channels:
-  - name: "squibquib"
-    id: "UC-9-sjOyxoDCdQlVzObzGsw"
-    kind: "letsplay"
+- name: "squibquib"
+  id: "UC-9-sjOyxoDCdQlVzObzGsw"
+  kind: "letsplay"
