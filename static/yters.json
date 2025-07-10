@@ -1,5 +1,5 @@
-{"items":[
-{ "name": "squibquib", "id": "UC-9-sjOyxoDCdQlVzObzGsw", "type": "letsplay"},
-{"name":"sinixdesign", "id":"UCUQTqWAaSzhAKRanOpes1nA" , "type": "art"},
-{"name":"misshapenchair", "id": "", "type": "essay"}
-]}
+[
+{"name": "squibquib", "id": "UC-9-sjOyxoDCdQlVzObzGsw", "kind": "letsplay"},
+{"name":"sinixdesign", "id":"UCUQTqWAaSzhAKRanOpes1nA" , "kind": "art"},
+{"name":"misshapenchair", "id": "", "kind": "essay"}
+]

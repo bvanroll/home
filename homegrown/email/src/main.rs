@@ -18,12 +18,12 @@ async fn main() {
     //
     //https://raw.githubusercontent.com/bvanroll/home/refs/heads/master/static/yters.json
     let resp = reqwest::get(channellist)//.await.unwrap().text().await;
-                    .await.expect("wa?")
-                    .text().await.expect("euh");
+                    .await.unwrap()
+                    .text().await.unwrap();
 //    let text = match resp {
 //        Ok(text) => text,
 //        Err(error) => println!("NOPE"),
 //    };                                          //
-    let channels =serde_json::from_str::<Vec<Channel>>(&resp).expect("EUH");
+    let channels =serde_json::from_str::<Vec<Channel>>(&resp).unwrap();
 
 }
