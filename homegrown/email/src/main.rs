@@ -9,7 +9,7 @@ struct Channel {
 
 #[tokio::main]
 async fn main() {
-    let channellist = "https://raw.githubusercontent.com/bvanroll/home/refs/heads/master/static/yters.yaml";
+    let channellist = "https://raw.githubusercontent.com/bvanroll/home/refs/heads/master/static/yters.json";
     //getting the list of channels with id's first 
     //
     //https://raw.githubusercontent.com/bvanroll/home/refs/heads/master/static/yters.json
@@ -20,6 +20,6 @@ async fn main() {
 //        Ok(text) => text,
 //        Err(error) => println!("NOPE"),
 //    };                                          //
-    let channels: Vec<Channel> =serde_yaml_ng::from_str(&resp).expect("EUH");
+    let channels: Vec<Channel> =serde_json::from_str(&resp).expect("EUH");
 
 }
