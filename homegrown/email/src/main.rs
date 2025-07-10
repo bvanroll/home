@@ -1,14 +1,11 @@
 use serde::Deserialize; 
-#[derive(Deserialize)]
-struct listje {
-    items: Vec<Channel>,
-}
 
 #[derive(Deserialize)]
 struct Channel {
     id: String,
     name: String,
     kind: String
+    channel
 }
 
 #[tokio::main]
@@ -25,5 +22,8 @@ async fn main() {
 //        Err(error) => println!("NOPE"),
 //    };                                          //
     let channels =serde_json::from_str::<Vec<Channel>>(&resp).unwrap();
+    for i in channels {
+        println!{"{:#?}", i.name};
+    }
 
 }

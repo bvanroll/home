@@ -2,4 +2,6 @@
 sends me an email every monday with all the new videos from channels i like on youtbue
 
 # status
-man, idk why but the request for my raw content just gives {} rn. i'm too tired to figure it out, it's for tomorrow
+can read the json, now to actually implement the youtube api calls. 
+Prolly just gonna call the api directly with reqwest.
+add <option> datafields in the struct. cleanup the "listje" 
