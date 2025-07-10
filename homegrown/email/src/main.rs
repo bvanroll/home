@@ -4,8 +4,7 @@ use serde::Deserialize;
 struct Channel {
     id: String,
     name: String,
-    kind: String
-    channel
+    kind: String,
 }
 
 #[tokio::main]
