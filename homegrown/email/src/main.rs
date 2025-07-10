@@ -1,4 +1,8 @@
 use serde::Deserialize; 
+#[derive(Deserialize)]
+struct listje {
+    items: Vec<Channel>,
+}
 
 #[derive(Deserialize)]
 struct Channel {
@@ -20,6 +24,6 @@ async fn main() {
 //        Ok(text) => text,
 //        Err(error) => println!("NOPE"),
 //    };                                          //
-    let channels: Vec<Channel> =serde_json::from_str(&resp).expect("EUH");
+    let channels =serde_json::from_str::<Vec<Channel>>(&resp).expect("EUH");
 
 }

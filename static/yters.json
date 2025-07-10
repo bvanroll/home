@@ -1,3 +1,5 @@
-  { "name": "squibquib", "id": "UC-9-sjOyxoDCdQlVzObzGsw", "type": "letsplay"}
-  {"name":"sinixdesign", "id":"UCUQTqWAaSzhAKRanOpes1nA" , "type": "art"}
-  {"name":"misshapenchair", "id": "", "type": "essay"}
+[
+{ "name": "squibquib", "id": "UC-9-sjOyxoDCdQlVzObzGsw", "type": "letsplay"},
+{"name":"sinixdesign", "id":"UCUQTqWAaSzhAKRanOpes1nA" , "type": "art"},
+{"name":"misshapenchair", "id": "", "type": "essay"}
+]
