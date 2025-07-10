@@ -20,6 +20,6 @@ async fn main() {
 //        Ok(text) => text,
 //        Err(error) => println!("NOPE"),
 //    };                                          //
-    let channels: Map<Channel> =serde_json::from_str(&resp).expect("EUH");
+    let channels: Vec<Channel> =serde_json::from_str(&resp).expect("EUH");
 
 }
